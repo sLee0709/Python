@@ -6,10 +6,10 @@ z = x * 2
 list = []
 newlist = []
 
-if x < 0:
+if x <= 0:
     print("Error! Try Again!")
 
-while z >= 2:
+while z >= 1:
     z = z // 2
     list.append(z)
 
