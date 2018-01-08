@@ -5,7 +5,6 @@ import tkinter.messagebox
 from tkinter import scrolledtext
 from datetime import datetime
 
-
 filename = ""
 
 def about():
@@ -61,24 +60,29 @@ def savebutton():
     projectName = path_af[0]
     JudgeExist = os.path.exists("result_" + datetime.now().date().isoformat() + "_" + projectName)
     if JudgeExist is True:
-        yesorno = tkinter.messagebox.askyesno(title="Warning!", message="The file with this name already exists. Do you want to cover it?")
+        yesorno = tkinter.messagebox.askyesno(title="Warning!",message="The file with this name already exists. Do you want to cover it?")
         if yesorno == True:
             f = open("result_" + datetime.now().date().isoformat() + "_" + projectName, 'w')
-            f.write(Out_frame.get('0.0', END).strip())
+            f.write(Out_frame.get('0.0', END))
             f.close()
-            tkinter.messagebox.showinfo(title="Success!", message="Data has been successfully saved as:\n" + "result_" + datetime.now().date().isoformat() + "_" +projectName)
+            tkinter.messagebox.showinfo(title="Success!",message="Data has been successfully saved as:\n" + "result_" + datetime.now().date().isoformat() + "_" + projectName)
         else:
-            saveas = tkinter.filedialog.asksaveasfile(filetypes=[("text file", "*.txt")])
+            Values = Out_frame.get('0.0', END)
+            if Values:
+                saveas = tkinter.filedialog.asksaveasfile(defaultextension="*.txt",filetypes=[("text file", "*.txt")])
+                if saveas:
+                    saveas.write(Values)
+                    tkinter.messagebox.showinfo(title="Success!", message="Data has been successfully saved!")
     else:
         f = open("result_" + datetime.now().date().isoformat() + "_" + projectName, 'w')
         f.write(Out_frame.get('0.0', END).strip())
         f.close()
-        tkinter.messagebox.showinfo(title="Success!", message="Data has been successfully saved as:\n" + "result_" + datetime.now().date().isoformat() + "_" + projectName)
+        tkinter.messagebox.showinfo(title="Success!",
+                                    message="Data has been successfully saved as:\n" + "result_" + datetime.now().date().isoformat() + "_" + projectName)
 
 top = Tk()
 top.title("DNA Reverse Complement®" + " - Version 1.0 Beta")
 top.geometry('600x400')
-top.resizable(width=False, height=False)
 
 menubar = Menu(top)
 filemenu = Menu(menubar, tearoff=0)
