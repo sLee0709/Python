@@ -54,35 +54,18 @@ def RUNNING():
         tkinter.messagebox.showinfo(title="Warning!", message="Please Enter Your Sequence!")
 
 def savebutton():
-    path = INPUT_text.get()
-    path_af = path.split('/')
-    path_af.reverse()
-    projectName = path_af[0]
-    JudgeExist = os.path.exists("result_" + datetime.now().date().isoformat() + "_" + projectName)
-    if JudgeExist is True:
-        yesorno = tkinter.messagebox.askyesno(title="Warning!",message="The file with this name already exists. Do you want to cover it?")
-        if yesorno == True:
-            f = open("result_" + datetime.now().date().isoformat() + "_" + projectName, 'w')
-            f.write(Out_frame.get('0.0', END))
-            f.close()
-            tkinter.messagebox.showinfo(title="Success!",message="Data has been successfully saved as:\n" + "result_" + datetime.now().date().isoformat() + "_" + projectName)
-        else:
-            Values = Out_frame.get('0.0', END)
-            if Values:
-                saveas = tkinter.filedialog.asksaveasfile(defaultextension="*.txt",filetypes=[("text file", "*.txt")])
-                if saveas:
-                    saveas.write(Values)
-                    tkinter.messagebox.showinfo(title="Success!", message="Data has been successfully saved!")
-    else:
-        f = open("result_" + datetime.now().date().isoformat() + "_" + projectName, 'w')
-        f.write(Out_frame.get('0.0', END).strip())
-        f.close()
-        tkinter.messagebox.showinfo(title="Success!",
-                                    message="Data has been successfully saved as:\n" + "result_" + datetime.now().date().isoformat() + "_" + projectName)
+    yesorno = tkinter.messagebox.askyesno(title="Warning!", message="Save Data?")
+    if yesorno == True:
+        Values = Out_frame.get('0.0', END)
+        if Values:
+            saveas = tkinter.filedialog.asksaveasfile(defaultextension="*.txt",filetypes=[("text file", "*.txt")])
+            if saveas:
+                saveas.write(Values)
+                tkinter.messagebox.showinfo(title="Success!", message="Data has been successfully saved!")
 
 top = Tk()
 top.title("DNA Reverse Complement®" + " - Version 1.0 Beta")
-top.geometry('600x400')
+top.geometry('620x400')
 
 menubar = Menu(top)
 filemenu = Menu(menubar, tearoff=0)
@@ -102,9 +85,9 @@ Read_frame = scrolledtext.ScrolledText(top, width=30, height=20)
 Read_frame.grid(row=3, column=4)
 Out_frame = scrolledtext.ScrolledText(top, width=30, height=20)
 Out_frame.grid(row = 3, column = 5)
-bt2 = Button(top, text="Run!", width = 10, command=RUNNING).grid(row = 4, column = 6)
-bt3 = Button(top, text="Save", width = 10, command=savebutton).grid(row = 5, column = 6)
-bt4 = Button(top, text="Clear", width = 10, command=textdel_read).grid(row = 5, column = 4)
-bt5 = Button(top, text="Clear", width = 10, command=textdel_out).grid(row = 5, column = 5)
+bt2 = Button(top, text="Run!", width = 10, command=RUNNING).grid(row = 5, column = 6)
+bt3 = Button(top, text="Save", width = 10, command=savebutton).grid(row = 6, column = 6)
+bt4 = Button(top, text="Clear", width = 32, command=textdel_read).grid(row = 4, column = 4)
+bt5 = Button(top, text="Clear", width = 32, command=textdel_out).grid(row = 4, column = 5)
 
 top.mainloop()
