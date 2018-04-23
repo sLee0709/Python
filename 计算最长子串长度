@@ -1,0 +1,8 @@
+x = input("x=")
+alist = [x[i:i + a + 1] for a in range(len(x)) for i in range(len(x) - a)] #找出所有子串
+blist = []
+for i in alist:
+    if len(i) == len(set(i)):
+        blist.append(i) #将所有子串中有重复字符的去除
+        Maxlen = max([len(j) for j in blist]) #输出最长无重复子串长度
+print(Maxlen)
