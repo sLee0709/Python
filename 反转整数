@@ -1,0 +1,31 @@
+# 给定一个 32 位有符号整数，将整数中的数字进行反转。
+
+def Int_reverse(a):
+    b_1 = str(a)
+    b = list(b_1)
+    b.reverse()
+    k = 2**31
+    if int(a) > k - 1 or int(a) < -k:
+        return 0
+    else:
+        if "-" in b:
+            b.remove('-')
+            b.insert(0,'-')
+            c = int(''.join(b))
+            if c < -k:
+                return 0
+            else:
+                return c
+        else:
+            d = int(''.join(b))
+            if d > k - 1:
+                return 0
+            else:
+                return d
+
+try:
+    c = int(input(""))
+    e = Int_reverse(c)
+    print(e)
+except ValueError:
+    print("Error, Please check your input!")
